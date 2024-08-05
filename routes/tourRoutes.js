@@ -1,11 +1,17 @@
 const express = require('express');
 const tourController = require('../controllers/tourController');
 const authController = require('../controllers/authController');
+const reviewRouter = require('./reviewRoutes');
 
 const router = express.Router();
 
 //local param middleware
 // router.param('id', tourController.checkID);
+
+//POST/tour/id/reviews -> nested route
+//GET/tour/id/reviews -> nested route
+
+router.use('/:tourId/reviews', reviewRouter);
 
 router
   .route('/top-5-cheap')
