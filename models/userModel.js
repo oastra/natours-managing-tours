@@ -34,9 +34,8 @@ const userSchema = new mongoose.Schema({
   },
   passwordConfirm: {
     type: String,
-    required: [true, 'Please confirm your password'],
     validate: {
-      //This only works on CREATE or Save!!!
+      // This only works on CREATE and SAVE!!!
       validator: function (el) {
         return el === this.password;
       },
@@ -59,11 +58,11 @@ userSchema.pre('save', async function (next) {
 
   //Hash the password with cost 12
   this.password = await bcrypt.hash(this.password, 12);
-  //Delete the passwordConfirm field
-  this.passwordConfirm = undefined;
   // Set passwordChangedAt to the current time
   this.passwordChangedAt = Date.now() - 1000; // Subtract 1 second to ensure the token is always created after the password has been changed
 
+  //Delete the passwordConfirm field
+  this.passwordConfirm = undefined;
   next();
 });
 
