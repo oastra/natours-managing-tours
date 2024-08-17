@@ -15,7 +15,7 @@ app.use(express.json()); //to use middlewhere in express create obj
 // });
 
 const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`, 'utf-8')
+  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`, 'utf-8'),
 );
 
 app.get('/api/v1/tours', (req, res) => {
@@ -45,11 +45,11 @@ app.post('/api/v1/tours', (req, res) => {
           tour: newTour,
         },
       });
-    }
+    },
   );
 });
 app.get('/api/v1/tours/:id', (req, res) => {
-  console.log(req.params);
+  // console.log(req.params);
 
   const id = req.params.id * 1; // convert string to number
 
